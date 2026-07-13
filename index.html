@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Agregador — Martes, 7 de julio de 2026</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f4efe6;
+    --paper-edge: #e7dfce;
+    --rule: #2a2a2a;
+    --accent: #8b0000;
+    --elpais: #0063a5;
+    --abc: #d8232a;
+    --larazon: #c8102e;
+    --lavanguardia: #1c3d7c;
+    --muted: #555;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Georgia", "Times New Roman", serif;
+    line-height: 1.5;
+    background-image:
+      radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+      radial-gradient(rgba(0,0,0,0.02) 1px, transparent 1px);
+    background-size: 3px 3px, 5px 5px;
+    background-position: 0 0, 1px 1px;
+  }
+  .newspaper {
+    max-width: 1200px;
+    margin: 24px auto;
+    padding: 32px 40px 64px;
+    background: var(--paper);
+    border: 1px solid var(--paper-edge);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  header.masthead {
+    text-align: center;
+    border-bottom: 4px double var(--rule);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+  }
+  h1.title {
+    font-family: "Old English Text MT", "Cormorant Garamond", "Playfair Display", Georgia, serif;
+    font-size: 78px;
+    margin: 6px 0 2px;
+    letter-spacing: 2px;
+    font-weight: 900;
+  }
+  .subtitle {
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #444;
+  }
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .edition { font-weight: bold; }
+  .nota-editor {
+    font-size: 12px;
+    font-style: italic;
+    color: var(--muted);
+    text-align: center;
+    margin: 10px 0 18px;
+    padding: 8px 12px;
+    border-top: 1px dotted var(--rule);
+    border-bottom: 1px dotted var(--rule);
+  }
+  .lead {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 28px;
+    padding: 12px 0 16px;
+    border-bottom: 2px solid var(--rule);
+    margin-bottom: 18px;
+  }
+  .lead .headline h2 {
+    font-family: "Playfair Display", "Times New Roman", serif;
+    font-size: 44px;
+    line-height: 1.05;
+    margin: 0 0 10px;
+    letter-spacing: -0.5px;
+  }
+  .lead .deck {
+    font-size: 16px;
+    font-style: italic;
+    color: #333;
+    margin-bottom: 12px;
+  }
+  .kicker {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+  .columns {
+    column-count: 2;
+    column-gap: 36px;
+    column-rule: 1px solid #bbb;
+    font-size: 14px;
+    text-align: justify;
+  }
+  .columns p:first-child::first-letter {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 52px;
+    float: left;
+    line-height: 0.9;
+    padding: 4px 8px 0 0;
+    font-weight: bold;
+  }
+  .sidebar {
+    font-size: 13px;
+    border-left: 1px solid #aaa;
+    padding-left: 20px;
+  }
+  .sidebar h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 6px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 4px;
+  }
+  .pov-row {
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px dotted #bbb;
+  }
+  .pov-row:last-child { border-bottom: none; }
+  .source-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 2px 6px;
+    margin-right: 6px;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 2px;
+    vertical-align: middle;
+  }
+  .tag-elpais { background: var(--elpais); }
+  .tag-abc { background: var(--abc); }
+  .tag-larazon { background: var(--larazon); }
+  .tag-lavanguardia { background: var(--lavanguardia); }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 18px;
+  }
+  article.story {
+    padding: 10px 0;
+    border-top: 1px solid var(--rule);
+  }
+  article.story h3 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 24px;
+    line-height: 1.1;
+    margin: 4px 0 6px;
+  }
+  article.story .deck {
+    font-style: italic;
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  article.story .body {
+    font-size: 14px;
+    text-align: justify;
+    margin-bottom: 10px;
+  }
+  .pov-block {
+    background: rgba(0,0,0,0.035);
+    border-left: 3px solid var(--rule);
+    padding: 10px 12px;
+    font-size: 12.5px;
+  }
+  .pov-block h5 {
+    margin: 0 0 6px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .pov-item { margin-bottom: 6px; line-height: 1.4; }
+  .pov-item a { color: var(--ink); text-decoration: underline; }
+  .pov-item a:hover { color: var(--accent); }
+  footer.pie {
+    margin-top: 40px;
+    border-top: 3px double var(--rule);
+    padding-top: 14px;
+    font-size: 12px;
+    text-align: center;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border-top: 3px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 4px 0;
+    margin: 24px 0 12px;
+    font-weight: bold;
+  }
+  @media (max-width: 860px) {
+    .lead { grid-template-columns: 1fr; }
+    .columns { column-count: 1; }
+    .grid { grid-template-columns: 1fr; }
+    h1.title { font-size: 54px; }
+  }
+</style>
+</head>
+<body>
+<div class="newspaper">
+
+  <header class="masthead">
+    <div class="topbar">
+      <span>Agregador de prensa · España</span>
+      <span>Nº 72 · Año I</span>
+      <span>Martes, 7 de julio de 2026</span>
+    </div>
+    <h1 class="title">El Agregador</h1>
+    <div class="subtitle">— Cuatro cabeceras, una mirada —</div>
+    <div class="meta-row">
+      <span class="edition">Edición de mañana</span>
+      <span>La Vanguardia · La Razón · El País · ABC</span>
+      <span>Ola de calor · Caso Leire Díez · Déficit público · Mundial 2026</span>
+    </div>
+  </header>
+
+  <div class="nota-editor">
+    Nota del editor: resúmenes neutros redactados a partir de la cobertura pública de hoy.
+    Los enfoques reflejan la tónica editorial habitual de cada cabecera.
+    Cada enlace abre una búsqueda acotada a la última semana para localizar el artículo exacto en el dominio del diario.
+  </div>
+
+  <!-- APERTURA -->
+  <section class="lead">
+    <div class="headline">
+      <div class="kicker">España · Cataluña · AEMET · Aviso rojo</div>
+      <h2>España afronta hoy el pico de la ola de calor con avisos rojos y hasta 44 grados, mientras Cataluña suma 57 muertes atribuidas al calor en una semana</h2>
+      <div class="deck">
+        El episodio, iniciado el domingo, se intensifica este martes con máximas que superan los 40 grados en gran parte del país. El sistema de vigilancia MoMo atribuye 57 fallecimientos al calor en Cataluña en los últimos siete días, la cifra más alta del verano.
+      </div>
+      <div class="columns">
+        <p>La Agencia Estatal de Meteorología mantiene avisos de nivel naranja y rojo este martes, con máximas que pueden superar los 40°C en gran parte del país y alcanzar los 42-44°C en el cuadrante suroeste, el litoral mediterráneo y puntos de Huesca y Lleida. Es la segunda ola de calor del verano, y las noches tropicales, que no bajan de los 24-26 grados, dificultan la recuperación térmica de la población más vulnerable.</p>
+        <p>Cataluña es la comunidad autónoma más afectada por el episodio: el Sistema de Monitorización de la Mortalidad diaria (MoMo) atribuye 57 fallecimientos al calor en los primeros días de julio, la cifra más alta del verano hasta la fecha. Las comarcas de Ponent, el interior de Barcelona y el litoral sur de Tarragona concentran el mayor impacto, mientras las autoridades catalanas han activado refugios climáticos y medidas preventivas. Meteocat advierte de que un domo de calor podría traer temperaturas récord a partir del próximo viernes.</p>
+      </div>
+    </div>
+
+    <aside class="sidebar">
+      <h4>Cómo lo cuenta cada diario</h4>
+      <div class="pov-row">
+        <span class="source-tag tag-elpais">El País</span>
+        Vincula la letalidad del episodio con el cambio climático y reclama reforzar los protocolos de protección para mayores y personas vulnerables.
+        <div><a href="https://www.google.com/search?q=ola+de+calor+57+muertes+Cataluna+julio+2026+site%3Aelpais.com&tbs=qdr:w" target="_blank" rel="noopener">Leer en El País ›</a></div>
+      </div>
+      <div class="pov-row">
+        <span class="source-tag tag-abc">ABC</span>
+        Centra la cobertura en las recomendaciones sanitarias y el impacto sobre el turismo y la actividad al aire libre en plena temporada estival.
+        <div><a href="https://www.google.com/search?q=ola+de+calor+57+muertes+Cataluna+julio+2026+site%3Aabc.es&tbs=qdr:w" target="_blank" rel="noopener">Leer en ABC ›</a></div>
+      </div>
+      <div class="pov-row">
+        <span class="source-tag tag-larazon">La Razón</span>
+        Detalla el balance de víctimas por comunidades autónomas y pide más inversión en infraestructuras frente a episodios de calor extremo cada vez más frecuentes.
+        <div><a href="https://www.google.com/search?q=ola+de+calor+57+muertes+Cataluna+julio+2026+site%3Alarazon.es&tbs=qdr:w" target="_blank" rel="noopener">Leer en La Razón ›</a></div>
+      </div>
+      <div class="pov-row">
+        <span class="source-tag tag-lavanguardia">La Vanguardia</span>
+        Con perspectiva catalana, da amplio despliegue a las 57 muertes en Cataluña y a la respuesta de la Generalitat con refugios climáticos.
+        <div><a href="https://www.google.com/search?q=ola+de+calor+57+muertes+Cataluna+julio+2026+site%3Alavanguardia.com&tbs=qdr:w" target="_blank" rel="noopener">Leer en La Vanguardia ›</a></div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- POLÍTICA · JUSTICIA -->
+  <div class="section-label">Política · Justicia</div>
+  <div class="grid">
+
+    <article class="story">
+      <div class="kicker">Audiencia Nacional · Juez Pedraz · Caso Leire Díez</div>
+      <h3>El juez Pedraz interroga como testigo al comandante de la Guardia Civil Rubén Villalba en la instrucción del caso Leire Díez</h3>
+      <div class="deck">La ronda de declaraciones continúa en la Audiencia Nacional tras la imputación de la cúpula del cuerpo la semana pasada, en el marco de la investigación sobre la presunta trama que habría intentado frenar causas judiciales.</div>
+      <div class="body">
+        El magistrado de la Audiencia Nacional Santiago Pedraz ha reanudado este martes la ronda de interrogatorios del caso Leire Díez con la declaración como testigo del comandante de la Guardia Civil Rubén Villalba. La citación se produce después de que la instrucción sumara la semana pasada la imputación de la directora general de la Guardia Civil, Mercedes González, y del director adjunto operativo, el teniente general Manuel Llamas, por presunta prevaricación y obstrucción a la justicia. El caso investiga una presunta red vinculada a Leire Díez, exmilitante del PSOE, que según la Unidad Central Operativa (UCO) habría mantenido reuniones para intentar influir en investigaciones que afectaban a su entorno.
+      </div>
+      <div class="pov-block">
+        <h5>Enfoque por cabecera</h5>
+        <div class="pov-item"><span class="source-tag tag-elpais">El País</span> Mantiene el foco en el carácter procesal de las declaraciones y recuerda que se trata de testigos, no de imputados, evitando conclusiones políticas. <a href="https://www.google.com/search?q=caso+Leire+Diez+Ruben+Villalba+Pedraz+declaracion+site%3Aelpais.com&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-abc">ABC</span> Presenta la sucesión de interrogatorios como prueba de una trama que salpica a la cúpula de la Guardia Civil y reclama depuración de responsabilidades. <a href="https://www.google.com/search?q=caso+Leire+Diez+Ruben+Villalba+Pedraz+declaracion+site%3Aabc.es&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-larazon">La Razón</span> Subraya el alcance institucional del caso y exige explicaciones políticas al Gobierno por el papel de altos mandos del cuerpo. <a href="https://www.google.com/search?q=caso+Leire+Diez+Ruben+Villalba+Pedraz+declaracion+site%3Alarazon.es&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-lavanguardia">La Vanguardia</span> Ofrece seguimiento detallado del calendario judicial, centrado en los hechos procesales más que en la interpretación política. <a href="https://www.google.com/search?q=caso+Leire+Diez+Ruben+Villalba+Pedraz+declaracion+site%3Alavanguardia.com&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+      </div>
+    </article>
+
+    <article class="story">
+      <div class="kicker">Consejo de Ministros · Hacienda · Comunidades Autónomas</div>
+      <h3>El Gobierno fija el déficit público en el 1,8% del PIB para el próximo año en pleno choque con las autonomías del PP por el margen de gasto</h3>
+      <div class="deck">El Consejo de Ministros aprueba la senda de estabilidad presupuestaria mientras las comunidades gobernadas por el PP rechazan el reparto y piden más margen de déficit del que ofrece Hacienda.</div>
+      <div class="body">
+        El Consejo de Ministros ha aprobado este martes el objetivo de déficit público del 1,8% del PIB para el próximo ejercicio, según lo avanzado por el ministro de Hacienda, Arcadi España. Del total, 1,5 puntos corresponden a la Administración Central, 0,2 puntos a la Seguridad Social, 0,1 a las comunidades autónomas y el equilibrio a las entidades locales. La propuesta ha generado un choque frontal con las comunidades gobernadas por el PP, que rechazan el margen de 0,1% ofrecido por Hacienda hasta 2029 y reclaman mayor capacidad de gasto. El Ejecutivo también ha abordado en el mismo Consejo el relevo al frente de la Agencia Tributaria tras la salida de Soledad Fernández.
+      </div>
+      <div class="pov-block">
+        <h5>Enfoque por cabecera</h5>
+        <div class="pov-item"><span class="source-tag tag-elpais">El País</span> Presenta la senda de déficit como muestra de disciplina fiscal y responsabilidad presupuestaria del Gobierno frente a las demandas autonómicas. <a href="https://www.google.com/search?q=deficit+publico+1,8+PIB+Consejo+Ministros+comunidades+autonomas+site%3Aelpais.com&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-abc">ABC</span> Recoge las quejas de las comunidades del PP y cuestiona el margen de gasto que Hacienda concede a las autonomías frente al que se reserva la Administración Central. <a href="https://www.google.com/search?q=deficit+publico+1,8+PIB+Consejo+Ministros+comunidades+autonomas+site%3Aabc.es&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-larazon">La Razón</span> Denuncia lo que considera un reparto desigual del ajuste fiscal, que perjudicaría a las comunidades autónomas frente al Estado. <a href="https://www.google.com/search?q=deficit+publico+1,8+PIB+Consejo+Ministros+comunidades+autonomas+site%3Alarazon.es&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-lavanguardia">La Vanguardia</span> Analiza con tono técnico el reparto de la senda de estabilidad y sus implicaciones para la financiación autonómica, incluida Cataluña. <a href="https://www.google.com/search?q=deficit+publico+1,8+PIB+Consejo+Ministros+comunidades+autonomas+site%3Alavanguardia.com&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- CATALUÑA · SOCIEDAD -->
+  <div class="section-label">Cataluña · Sociedad</div>
+  <div class="grid">
+
+    <article class="story">
+      <div class="kicker">Cataluña · Incendios forestales · Ola de calor</div>
+      <h3>Los incendios forestales se multiplican en Cataluña en plena ola de calor, con nuevos focos en La Bisbal y Sentmenat</h3>
+      <div class="deck">Medios terrestres y aéreos trabajan para estabilizar varios fuegos activos en distintas comarcas catalanas, favorecidos por las altas temperaturas y la sequedad ambiental.</div>
+      <div class="body">
+        Los servicios de emergencia catalanes combaten varios incendios forestales activos, entre ellos los declarados en La Bisbal y Sentmenat, en un contexto de temperaturas extremas y baja humedad que favorece la propagación del fuego. Los Bombers de la Generalitat han movilizado medios terrestres y aéreos, y uno de los focos ya ha podido ser estabilizado. La combinación de calor, sequedad y viento mantiene activada la alerta por riesgo de incendio en buena parte del territorio catalán, en un verano marcado ya por dos episodios de calor extremo.
+      </div>
+      <div class="pov-block">
+        <h5>Enfoque por cabecera</h5>
+        <div class="pov-item"><span class="source-tag tag-elpais">El País</span> Enmarca los incendios dentro de la tendencia de mayor riesgo por el cambio climático y pide reforzar la prevención estructural. <a href="https://www.google.com/search?q=incendios+forestales+Cataluna+Bisbal+Sentmenat+julio+2026+site%3Aelpais.com&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-abc">ABC</span> Pone el acento en la eficacia del operativo de extinción y en las medidas de precaución recomendadas a la población en zonas rurales. <a href="https://www.google.com/search?q=incendios+forestales+Cataluna+Bisbal+Sentmenat+julio+2026+site%3Aabc.es&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-larazon">La Razón</span> Reclama mayor inversión en medios de extinción y en gestión forestal ante la reiteración de episodios de este tipo cada verano. <a href="https://www.google.com/search?q=incendios+forestales+Cataluna+Bisbal+Sentmenat+julio+2026+site%3Alarazon.es&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-lavanguardia">La Vanguardia</span> Sigue con detalle el operativo de los Bombers y el impacto territorial de los fuegos en las comarcas catalanas afectadas. <a href="https://www.google.com/search?q=incendios+forestales+Cataluna+Bisbal+Sentmenat+julio+2026+site%3Alavanguardia.com&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+      </div>
+    </article>
+
+    <article class="story">
+      <div class="kicker">Sanfermines · Pamplona · Diez años de La Manada</div>
+      <h3>Pamplona vive el día grande de Sanfermines coincidiendo con el décimo aniversario de la violación grupal de La Manada</h3>
+      <div class="deck">Los toros de la ganadería de Fuente Ymbro protagonizan el primer encierro de las fiestas, mientras se cumplen diez años de la agresión sexual grupal de 2016 que impulsó cambios legislativos sobre consentimiento sexual en España.</div>
+      <div class="body">
+        Pamplona celebra este martes el día grande de sus fiestas de San Fermín con el primer encierro, protagonizado por los toros de la ganadería gaditana de Fuente Ymbro. La jornada coincide con el décimo aniversario de la violación grupal cometida por el grupo conocido como La Manada durante los Sanfermines de 2016, un caso de fuerte impacto social y judicial que impulsó cambios legislativos posteriores en materia de consentimiento sexual en España. Las fiestas mantienen este año dispositivos reforzados de seguridad y puntos violeta de atención frente a agresiones sexuales.
+      </div>
+      <div class="pov-block">
+        <h5>Enfoque por cabecera</h5>
+        <div class="pov-item"><span class="source-tag tag-elpais">El País</span> Recuerda el impacto de La Manada en la legislación sobre consentimiento sexual y pone el foco en la prevención de agresiones durante las fiestas. <a href="https://www.google.com/search?q=Sanfermines+La+Manada+diez+anos+encierro+site%3Aelpais.com&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-abc">ABC</span> Da amplio despliegue festivo a los encierros y la tradición sanferminera, con cobertura protocolaria del inicio de las fiestas. <a href="https://www.google.com/search?q=Sanfermines+La+Manada+diez+anos+encierro+site%3Aabc.es&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-larazon">La Razón</span> Combina la crónica taurina y festiva con un repaso al balance judicial del caso una década después. <a href="https://www.google.com/search?q=Sanfermines+La+Manada+diez+anos+encierro+site%3Alarazon.es&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-lavanguardia">La Vanguardia</span> Aporta un análisis social sobre la evolución de la percepción pública de las agresiones sexuales en espacios festivos desde 2016. <a href="https://www.google.com/search?q=Sanfermines+La+Manada+diez+anos+encierro+site%3Alavanguardia.com&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- INTERNACIONAL · DEPORTES -->
+  <div class="section-label">Internacional · Deportes</div>
+  <div class="grid">
+
+    <article class="story">
+      <div class="kicker">Ucrania · Rusia · OTAN · Cumbre de Ankara</div>
+      <h3>Ucrania intensifica su ofensiva de drones sobre territorio ruso mientras la OTAN se reúne en Ankara con Zelenski</h3>
+      <div class="deck">Más de 400 drones ucranianos sobrevolaron la región de Moscú en la última noche, en el marco de una campaña de 40 días contra infraestructuras energéticas rusas, mientras los aliados atlánticos reafirman su respaldo a Kiev.</div>
+      <div class="body">
+        Ucrania mantiene una ofensiva de misiles y drones de largo alcance iniciada a finales de junio contra infraestructuras energéticas rusas, con más de 400 drones dirigidos la última noche hacia la región de Moscú, la mayoría interceptados por la defensa aérea rusa según fuentes de ambos bandos. Kiev asegura además haber atacado un aeródromo militar en la Crimea ocupada. En paralelo, la OTAN celebra este martes una cumbre en Ankara a la que asiste el presidente ucraniano, Volodímir Zelenski, en la que se espera que los aliados reiteren su apoyo a Ucrania, en un contexto de reducción de la ayuda militar de algunos países como Polonia.
+      </div>
+      <div class="pov-block">
+        <h5>Enfoque por cabecera</h5>
+        <div class="pov-item"><span class="source-tag tag-elpais">El País</span> Contextualiza la escalada dentro de la guerra de desgaste y recoge con matices las cifras de ambos bandos, evitando atribuciones categóricas. <a href="https://www.google.com/search?q=Ucrania+Rusia+ofensiva+drones+cumbre+OTAN+Ankara+julio+2026+site%3Aelpais.com&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-abc">ABC</span> Enmarca la ofensiva ucraniana como legítima respuesta defensiva y respalda la firmeza de la cumbre de la OTAN frente a Rusia. <a href="https://www.google.com/search?q=Ucrania+Rusia+ofensiva+drones+cumbre+OTAN+Ankara+julio+2026+site%3Aabc.es&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-larazon">La Razón</span> Reclama mayor compromiso occidental en el suministro de armamento y critica la reducción de la ayuda de países como Polonia. <a href="https://www.google.com/search?q=Ucrania+Rusia+ofensiva+drones+cumbre+OTAN+Ankara+julio+2026+site%3Alarazon.es&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-lavanguardia">La Vanguardia</span> Analiza el impacto estratégico de la cumbre de Ankara y sus consecuencias para el mapa de alianzas dentro de la OTAN. <a href="https://www.google.com/search?q=Ucrania+Rusia+ofensiva+drones+cumbre+OTAN+Ankara+julio+2026+site%3Alavanguardia.com&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+      </div>
+    </article>
+
+    <article class="story">
+      <div class="kicker">Mundial 2026 · Octavos de final</div>
+      <h3>El Mundial 2026 completa hoy sus octavos de final con los duelos Estados Unidos-Bélgica, Argentina-Egipto y Suiza-Colombia</h3>
+      <div class="deck">La jornada arranca de madrugada con el partido de Estados Unidos, coanfitrión del torneo, y continúa por la tarde con Argentina y Suiza, que buscan billete para cuartos de final.</div>
+      <div class="body">
+        El Mundial 2026 continúa hoy con tres encuentros de octavos de final: Estados Unidos, coanfitrión del torneo junto a Canadá y México, se mide a Bélgica a las 02:00 hora española; Argentina se enfrenta a Egipto a las 18:00; y Suiza afronta a Colombia a las 22:00. Los tres vencedores completarán el cuadro de cuartos de final de una edición que por primera vez reúne a 48 selecciones. En paralelo, la selección española femenina de waterpolo prepara en Sant Cugat del Vallès su participación en la Superfinal de la Copa del Mundo en Sydney, y continúan Wimbledon, con Jannik Sinner y Naomi Osaka en cuartos de final, y la cuarta etapa del Tour de Francia entre Carcasona y Foix.
+      </div>
+      <div class="pov-block">
+        <h5>Enfoque por cabecera</h5>
+        <div class="pov-item"><span class="source-tag tag-elpais">El País</span> Análisis táctico de los cruces de octavos, con atención al desgaste físico de las selecciones tras la fase de dieciseisavos. <a href="https://www.google.com/search?q=Mundial+2026+octavos+final+Estados+Unidos+Belgica+Argentina+Egipto+site%3Aelpais.com&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-abc">ABC</span> Cobertura entusiasta de los partidos con perfiles de figuras destacadas y expectación por el camino hacia semifinales. <a href="https://www.google.com/search?q=Mundial+2026+octavos+final+Estados+Unidos+Belgica+Argentina+Egipto+site%3Aabc.es&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-larazon">La Razón</span> Sigue con detalle el calendario de octavos y los posibles cruces de cuartos, con atención a las opciones de las principales candidatas. <a href="https://www.google.com/search?q=Mundial+2026+octavos+final+Estados+Unidos+Belgica+Argentina+Egipto+site%3Alarazon.es&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+        <div class="pov-item"><span class="source-tag tag-lavanguardia">La Vanguardia</span> Atiende al impacto mediático del torneo en Estados Unidos y a la repercusión de otros eventos deportivos paralelos como Wimbledon y el Tour. <a href="https://www.google.com/search?q=Mundial+2026+octavos+final+Estados+Unidos+Belgica+Argentina+Egipto+site%3Alavanguardia.com&tbs=qdr:w" target="_blank" rel="noopener">Leer ›</a></div>
+      </div>
+    </article>
+
+  </div>
+
+  <footer class="pie">
+    El Agregador — Martes, 7 de julio de 2026 · Resumen autónomo de prensa a partir de fuentes públicas · Los enfoques por cabecera son interpretativos y no citan artículos concretos
+  </footer>
+
+</div>
+</body>
+</html>
